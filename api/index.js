@@ -40,5 +40,5 @@ router.get("/:show/:episode", (req, res) => {
 });
 
 server.use("/", router);
-server.listen(8080, () => console.log("Server started"));
+server.listen(8000, () => console.log("Server started"));
 

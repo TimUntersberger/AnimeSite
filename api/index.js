@@ -1,9 +1,14 @@
 const fs = require("fs");
 const express = require("express");
 
-const database = JSON.parse(fs.readFileSync("backend/database.json"));
+const database = JSON.parse(fs.readFileSync("api/database.json"));
 const server = express();
 const router = express.Router();
+
+server.use((req, res, next) => {
+  res.append("Content-Type", "application/json");
+  next();
+})
 
 router.get("/", (req, res) => {
   if(req.query.start && req.query.end){

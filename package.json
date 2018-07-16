@@ -10,7 +10,7 @@
     "express": "^4.16.3"
   },
   "scripts": {
-    "api-server": "node backend/index.js",
+    "api-server": "node api/index.js",
     "server:dev": "node index.js",
     "scrape": "node backend/scrape.js"
   }

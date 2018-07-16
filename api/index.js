@@ -38,9 +38,9 @@ router.get("/:show/:episode", (req, res) => {
       if(episode){
         res.json(episode);
       }
-      res.end();
+      res.status(404).end();
     }
-    res.end();
+    res.status(404).end();
   }
 });
 

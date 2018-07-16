@@ -27,6 +27,7 @@ router.get("/:show", (req, res) => {
     if(show){
       res.json(show);
     }
+    else res.status(404).end();
   }
 });
 

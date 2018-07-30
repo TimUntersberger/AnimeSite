@@ -1,0 +1,12 @@
+.player-container{
+  width: 1350px;
+  height: 760px;
+  margin: 0 auto;
+}
+.wrapper{
+  display: flex;
+  flex-direction: column;
+}
+.episode-nav{
+  display: flex;
+}

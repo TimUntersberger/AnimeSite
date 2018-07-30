@@ -7,13 +7,19 @@
     "cheerio": "^1.0.0-rc.2",
     "delay": "^3.0.0",
     "dotenv": "^6.0.0",
+    "dropbox": "^4.0.9",
     "ejs": "^2.6.1",
     "electron": "^2.0.5",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "feedsub": "^0.5.2",
+    "isomorphic-fetch": "^2.2.1",
+    "mongoose": "^5.2.4",
+    "plyr": "^3.3.23",
+    "rss-feed-watcher": "^1.0.0",
+    "webtorrent": "^0.101.0"
   },
   "scripts": {
     "api-server": "node api/index.js",
-    "server:dev": "node index.js",
-    "scrape": "electron api/scrape.js"
+    "server:dev": "node index.js"
   }
 }

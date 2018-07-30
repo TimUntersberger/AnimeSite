@@ -2,15 +2,29 @@
 <html lang="en">
   <head>
     <% include ../partials/head %>
+    <link rel="stylesheet" href="/static/css/plyr.css"/>
+    <link rel="stylesheet" href="/static/css/episode.css"/>
   </head>
   <body>
     <header>
       <% include ../partials/header %>
     </header>
     <main>
-      <video controls>
-        <source src="<%= episode.url %>" type="video/mp4">
-      </video>
+      <div class="wrapper">
+        <div class="player-container">
+          <video id="player" controls>
+            <source src="<%= episode.url %>" type="video/mp4">
+          </video>
+        </div>
+        <div class="episode-nav">
+          <p>ka;dsjlkfas;djf</p>
+          <p>fdka;lsjdkf;lsjdkf</p>
+        </div>
+      </div>
     </main>
+    <script src="/static/js/plyr.min.js"></script>
+    <script>
+      new Plyr('#player');
+    </script>
   </body>
 </html>

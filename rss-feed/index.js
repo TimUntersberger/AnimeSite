@@ -40,7 +40,7 @@ watcher.on("new item", item => {
     });
 })
 
-//watcher.start();
+watcher.start();
 
 
 

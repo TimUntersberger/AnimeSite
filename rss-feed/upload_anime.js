@@ -3,6 +3,7 @@ require("isomorphic-fetch");
 
 const fs = require("fs");
 const { Dropbox } = require("dropbox");
+const { execSync } = require("child_process");
 const dropboxClient = new Dropbox({ accessToken: process.env.DROPBOX_API_TOKEN });
 
 function uploadVideo(filePath, target){
@@ -80,6 +81,7 @@ function uploadVideo(filePath, target){
           .sharingCreateSharedLinkWithSettings({ path: target})
           .catch(console.log);
 
+        execSync(`rm ${filePath}`);
         resolve(url.replace("dl=0", "raw=1"));
       }
     })

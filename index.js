@@ -7,7 +7,7 @@ const router  = express.Router();
 const fs      = require("fs");
 const mongoose = require("mongoose");
 const Show = require(path.join(__dirname, "models/show"));
-const Episode = require(path.join(__dirname, "models/Episode"));
+const Episode = require(path.join(__dirname, "models/episode"));
 
 mongoose.connect(process.env.MONGO_DB_HOST, {
   useNewUrlParser: true

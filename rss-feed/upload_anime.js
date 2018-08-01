@@ -33,7 +33,7 @@ function uploadVideo(filePath, target){
         });
         const sessionId = result.session_id;
         let uploadedBytes = (firstSlice.offset + firstSlice.length);
-        console.log(`Uploaded ${(uploadedBytes * 100 / file.length).toFixed(2)}% ${(uploadedBytes / 1000000).toFixed(0)}/${(file.length / 1000000).toFixed(0)} MB`);
+        console.log(`[DEBUG]: Uploaded ${(uploadedBytes * 100 / file.length).toFixed(2)}% ${(uploadedBytes / 1000000).toFixed(0)}/${(file.length / 1000000).toFixed(0)} MB`);
         await slices
           .slice(1, slices.length - 1)
           .reduce(
@@ -47,7 +47,7 @@ function uploadVideo(filePath, target){
                   })
                   .then(res => {
                     let uploadedBytes = (slice.offset + slice.length);
-                    console.log(`Uploaded ${(uploadedBytes * 100 / file.length).toFixed(2)}% ${(uploadedBytes / 1000000).toFixed(0)}/${(file.length / 1000000).toFixed(0)} MB`);
+                    console.log(`[DEBUG]: Uploaded ${(uploadedBytes * 100 / file.length).toFixed(2)}% ${(uploadedBytes / 1000000).toFixed(0)}/${(file.length / 1000000).toFixed(0)} MB`);
                   })
                   .catch(err => {
                     console.log(err)
@@ -70,10 +70,9 @@ function uploadVideo(filePath, target){
         })
         .then(res => {
           let uploadedBytes = (lastSlice.offset + lastSlice.length);
-          console.log(`Uploaded ${(uploadedBytes * 100 / file.length).toFixed(2)}% ${(uploadedBytes / 1000000).toFixed(0)}/${(file.length / 1000000).toFixed(0)} MB`);
+          console.log(`[DEBUG]: Uploaded ${(uploadedBytes * 100 / file.length).toFixed(2)}% ${(uploadedBytes / 1000000).toFixed(0)}/${(file.length / 1000000).toFixed(0)} MB`);
         })
         .catch(err => {
-          console.log("finish")
           console.log(err)
         });
 

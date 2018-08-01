@@ -22,13 +22,16 @@ watcher.on("new item", item => {
   if(!WHITE_LIST.includes(showTitle)) return;
 
   const episode = tokens[tokens.length - 1];
-  
+  console.log("[INFO]: Started download of '" + showTitle + " - " + episode + "'")
   downloadAnime(item.link)
     .then(filePath => {
+      console.log("[INFO]: Finished download of '" + showTitle + " - " + episode + "'")
+      console.log("[INFO]: Starting upload of '" + showTitle + " - " + episode + "'")
       uploadAnime(
         filePath,
         showTitle + "/" + episode + ".mp4"
       ).then(url => {
+        console.log("[INFO]: Finished upload of '" + showTitle + " - " + episode + "'")
         insertEpisode(
           showTitle,
           {

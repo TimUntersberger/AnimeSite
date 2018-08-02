@@ -4,7 +4,7 @@ const path = require("path");
 const downloadAnime = require("./download_anime");
 const fs = require("fs");
 const uploadAnime = require("./upload_anime");
-const { insertEpisode } = require("./save_anime");
+const { insertEpisode } = require("../repository/save_anime");
 const watcher = new RssFeedWatcher("http://www.horriblesubs.info/rss.php?res=1080");
 const WHITE_LIST = fs
   .readFileSync(path.join(__dirname, "../.anime_white_list"))

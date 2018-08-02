@@ -23,7 +23,9 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/shows", (req, res) => {
-  getAllAnimes().then(animes => res.render("pages/shows", animes));
+  getAllAnimes().then(animes => 
+    res.render("pages/shows", { animes })
+  );
 });
 
 router.get("/:title/:episodeNumber", async (req, res) => {

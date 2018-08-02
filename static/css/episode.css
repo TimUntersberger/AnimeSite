@@ -1,12 +1,16 @@
 .player-container{
-  width: 1350px;
-  height: 760px;
-  margin: 0 auto;
+  min-width: 100vh;
+  min-height: 100vh;
 }
+
 .wrapper{
   display: flex;
   flex-direction: column;
 }
 .episode-nav{
   display: flex;
+  min-height: 50px;
+}
+video {
+  object-fit: fill;
 }

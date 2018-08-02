@@ -8,6 +8,9 @@ mongoose.connect(process.env.MONGO_DB_HOST, {
 });
 
 module.exports = {
+  getAllAnimes: function(){
+    return Show.find().populate("episodes");
+  },
   insertEpisode: function (title, episode, cb){
     const show = Show.find({ title });
     episode = new Episode({

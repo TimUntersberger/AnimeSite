@@ -7,7 +7,7 @@ const router  = express.Router();
 const fs      = require("fs");
 const mongoose = require("mongoose");
 const Show = require(path.join(__dirname, "models/show"));
-const Episode = require(path.join(__dirname, "models/episode"));
+const { getAllAnimes } = require(path.join(__dirname, "/repository/save_anime"));
 
 mongoose.connect(process.env.MONGO_DB_HOST, {
   useNewUrlParser: true
@@ -19,8 +19,11 @@ server.set("view engine", "ejs");
 server.set("views", "src");
 
 router.get("/", async (req, res) => {
-  const shows = await Show.find();
-  res.json(shows);
+  res.render("pages/home");
+});
+
+router.get("/shows", (req, res) => {
+  getAllAnimes().then(animes => res.render("pages/shows", animes));
 });
 
 router.get("/:title/:episodeNumber", async (req, res) => {
@@ -43,7 +46,7 @@ router.get("/:title/:episodeNumber", async (req, res) => {
   res.render("pages/episode", {
     episode: {
       title: "Boku no Hero Academia",
-      url: "https://www.dropbox.com/s/6k3yede2q3w2cvm/1.mp4?raw=1",
+      url: "https://www.dropbox.com/s/79l4k2y9gxidtbr/04.mp4?raw=1",
       episodeNumber: 1
     }
   });

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../partials/head %>
+  <link rel="stylesheet" href="/static/css/authenticate.css">
+</head>
+<body>
+  <% include ../partials/header %>
+  <link rel="stylesheet" href="/static/css/authenticate.css">
+  <div class="main">
+    <form action="http://localhost:8000/authenticate">
+      <input type="password" class="form-control" name="password" id="password" placeholder="Enter password">
+    </form>
+  </div>
+  <script src="/static/js/authenticate.js"></script>
+</body>
+</html>

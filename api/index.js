@@ -5,17 +5,29 @@ const server = express();
 const router = express.Router();
 const { insertEpisode, getEpisode, getAnime, getAllAnimes } = require(path.join(__dirname, "../repository/save_anime"))
 
-server.use(bodyParser.urlencoded({
-    extended: true
-}));
+server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
-server.use((req, res, next) => {
+router.get("/authenticate", (req, res) => {
+  const { password } = req.query;
+  if(password === "test"){
+    res.cookie("authorization", "test");
+    res.redirect(req.headers.referer);
+  }
+  else res.status(403).end();
+});
+
+router.use((req, res, next) => {
   res.append("Content-Type", "application/json");
-  next();
+	const token = req.get("Authorization");
+	if(token && token.split(" ")[1] === "test")
+		next();
+	else
+		res.status(403).end();
 })
 
 router.get("/", (req, res) => { getAllAnimes().then(animes => res.json(animes)).catch(console.log) });
+
 router.post("/:show/:episode", (req, res) => {
 	const { show, episode } = req.params;
 	const { url } = req.body;

@@ -1,5 +1,6 @@
 require("dotenv").load();
 const express = require("express");
+const cookieParser = require("cookie-parser");
 const path    = require("path");
 const server  = express();
 const port    = process.env.PORT || 8080;
@@ -13,13 +14,22 @@ mongoose.connect(process.env.MONGO_DB_HOST, {
   useNewUrlParser: true
 });
 
-server.use(router);
+server.use(cookieParser());
 server.use("/static", express.static("static"));
+server.use(router);
 server.set("view engine", "ejs");
 server.set("views", "src");
 
 router.get("/", async (req, res) => {
   res.render("pages/home");
+});
+
+router.use((req, res, next) => {
+	const token = req.cookies.authorization;
+	if(token && token == "test")
+		next();
+	else
+		res.render("pages/authenticate");
 });
 
 router.get("/shows", (req, res) => {

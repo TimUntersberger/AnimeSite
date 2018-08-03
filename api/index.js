@@ -1,47 +1,30 @@
-const fs = require("fs");
 const express = require("express");
-
-const database = JSON.parse(fs.readFileSync("api/database.json"));
+const path = require("path");
+const bodyParser = require("body-parser");
 const server = express();
 const router = express.Router();
+const { insertEpisode, getEpisode, getAnime, getAllAnimes } = require(path.join(__dirname, "../repository/save_anime"))
+
+server.use(bodyParser.urlencoded({
+    extended: true
+}));
+server.use(bodyParser.json());
 
 server.use((req, res, next) => {
   res.append("Content-Type", "application/json");
   next();
 })
 
-router.get("/", (req, res) => {
-  if(req.query.start && req.query.end){
-    const temp = {};
-    Object.keys(database).slice(req.query.start - 1, req.query.end - 1).forEach(key => {
-      temp[key] = database[key];
-    });
-    res.json(temp);
-  }
-  else res.json(database);
-});
+router.get("/", (req, res) => { getAllAnimes().then(animes => res.json(animes)).catch(console.log) });
+router.post("/:show/:episode", (req, res) => {
+	const { show, episode } = req.params;
+	const { url } = req.body;
 
-router.get("/:show", (req, res) => {
-  if(req.params.show){
-    const show = database[req.params.show];
-    if(show){
-      res.json(show);
-    }
-  }
-});
+	if(show && episode && url){
+		insertEpisode(show, { url, episodeNumber: episode })
+	}
 
-router.get("/:show/:episode", (req, res) => {
-  if(req.params.show && req.params.episode){
-    const show = database[req.params.show];
-    if(show){
-      const episode = show.episodes[req.params.episode];
-      if(episode){
-        res.json(episode);
-      }
-      res.status(404).end();
-    }
-    res.status(404).end();
-  }
+	res.end();
 });
 
 server.use("/", router);

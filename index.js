@@ -29,7 +29,7 @@ router.use((req, res, next) => {
 	if(token && token == "test")
 		next();
 	else
-		res.render("pages/authenticate");
+		res.render("pages/authenticate", { actionUrl: "http://localhost:8000/authenticate" });
 });
 
 router.get("/shows", (req, res) => {

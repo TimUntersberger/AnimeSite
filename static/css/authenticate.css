@@ -1,7 +1,13 @@
 .main{
+  position: absolute;
   display: flex;
-  height: 100vh;
+  top: calc(50% - 68px);
   width: 100vw;
-  align-items: center;
   justify-content: center;
+  z-index: 3 !important;
+}
+
+.form{
+  background-color: white;
+  padding: 20px;
 }

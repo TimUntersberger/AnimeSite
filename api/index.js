@@ -12,9 +12,9 @@ router.get("/authenticate", (req, res) => {
   const { password } = req.query;
   if(password === "test"){
     res.cookie("authorization", "test");
-    res.redirect(req.headers.referer);
   }
-  else res.status(403).end();
+  else res.status(403);
+  res.redirect(req.headers.referer);
 });
 
 router.use((req, res, next) => {

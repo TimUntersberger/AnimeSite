@@ -11,7 +11,10 @@ server.use(bodyParser.json());
 router.get("/authenticate", (req, res) => {
   const { password } = req.query;
   if(password === "test"){
-    res.cookie("authorization", "test");
+    let cookieOptions = {};
+    if(process.env.DOMAIN)
+      cookieOptions.domain = process.env.DOMAIN;
+    res.cookie("authorization", "test", cookieOptions);
   }
   else res.status(403);
   res.redirect(req.headers.referer);

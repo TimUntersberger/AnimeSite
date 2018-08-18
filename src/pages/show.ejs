@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../partials/head %>
+</head>
+<body>
+  <header>
+    <% include ../partials/header %>
+    <link rel="stylesheet" href="/static/css/show.css">
+  </header>
+  <main>
+    <div class="wrapper">
+      <div class="left-side">
+        <img src="<%= show.posterImageUrl %>">
+      </div>
+      <div class="content">
+        <h1 class="anime-title">
+          <%= show.title %>
+        </h1>
+        <p class="anime-description">
+          <%= show.description %>
+        </p>
+        <div class="episodes">
+          <% show.episodes.forEach(function(episode){ %>
+          <div class="episode">
+            <img class="episode-image" src="<%= show.coverImageUrl %>" onclick='window.location.href="<%= show.title %>/<%= episode.episodeNumber %>"'></img>
+            <div class="episode-text">
+              <span class="episode-title">
+                Episode <%= episode.episodeNumber %>
+              </span>
+              <span class="episode-number">
+                Ep. <%= episode.episodeNumber %>
+              </span>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

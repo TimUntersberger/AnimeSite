@@ -19,7 +19,7 @@ router.get("/authenticate", (req, res) => {
 
 router.use((req, res, next) => {
   res.append("Content-Type", "application/json");
-	const token = req.get("Authorization");
+  const token = req.get("Authorization");
 	if(token && token.split(" ")[1] === "test")
 		next();
 	else
@@ -28,15 +28,15 @@ router.use((req, res, next) => {
 
 router.get("/", (req, res) => { getAllAnimes().then(animes => res.json(animes)).catch(console.log) });
 
-router.post("/:show/:episode", (req, res) => {
+router.post("/:show/:episode", async (req, res) => {
 	const { show, episode } = req.params;
-	const { url } = req.body;
+  const { url } = req.body;
 
 	if(show && episode && url){
-		insertEpisode(show, { url, episodeNumber: episode })
-	}
-
-	res.end();
+    await insertEpisode(show, { url, episodeNumber: episode })
+    res.status(201).end();
+  }
+  else res.status(400).end()
 });
 
 server.use("/", router);

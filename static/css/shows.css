@@ -1,0 +1,17 @@
+.anime{
+  min-width: 284px;
+  cursor: pointer;
+  margin: 10px;
+}
+.anime .card-img-top{
+  height: 402px;
+}
+.anime .card-body{
+  padding-bottom: 5px;
+}
+.container{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  min-width: calc(6 * 311.5px);
+}

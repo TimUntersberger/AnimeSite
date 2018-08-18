@@ -4,7 +4,7 @@ const path = require("path");
 const downloadAnime = require("./download_anime");
 const fs = require("fs");
 const uploadAnime = require("./upload_anime");
-const { insertEpisode } = require("../repository/save_anime");
+const axios = require("axios");
 const watcher = new RssFeedWatcher("http://www.horriblesubs.info/rss.php?res=1080");
 const WHITE_LIST = fs
   .readFileSync(path.join(__dirname, "../.anime_white_list"))
@@ -32,22 +32,9 @@ watcher.on("new item", item => {
         showTitle + "/" + episode + ".mp4"
       ).then(url => {
         console.log("[INFO]: Finished upload of '" + showTitle + " - " + episode + "'")
-        insertEpisode(
-          showTitle,
-          {
-            episodeNumber: episode,
-            url
-          }
-        )
+        axios.post(`https://baaka.io/api/${showTitle}/${episode}`, { url });
       });
     });
 })
 
 watcher.start();
-
-
-
-
-
-
-      

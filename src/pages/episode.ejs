@@ -17,12 +17,16 @@
           </video>
         </div>
         <div class="episode-nav" id="episode-nav">
-          <button class="btn btn-outline-light previous">
+          <% if( episode.hasPrevious ) {%>
+          <button class="btn btn-outline-light previous" onclick="window.location.href = '/<%= show.title %>/<%= episode.episodeNumber - 1 %>'">
             <i class="fas fa-arrow-left"></i>
           </button>
-          <button class="btn btn-outline-light next">
+          <% } %>
+          <% if( episode.hasNext ) {%>
+          <button class="btn btn-outline-light next" onclick="window.location.href = '/<%= show.title %>/<%= episode.episodeNumber + 1 %>'">
             <i class="fas fa-arrow-right"></i>
           </button>
+          <% } %>
         </div>
       </div>
     </main>

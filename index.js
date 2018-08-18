@@ -8,7 +8,7 @@ const router  = express.Router();
 const fs      = require("fs");
 const mongoose = require("mongoose");
 const Show = require(path.join(__dirname, "models/show"));
-const { getAllAnimes } = require(path.join(__dirname, "/repository/save_anime"));
+const { getAllAnimes, getAnime } = require(path.join(__dirname, "/repository/save_anime"));
 
 mongoose.connect(process.env.MONGO_DB_HOST, {
   useNewUrlParser: true
@@ -21,47 +21,52 @@ server.set("view engine", "ejs");
 server.set("views", "src");
 
 router.get("/", async (req, res) => {
-  res.render("pages/home");
+  res.render("pages/home", { location: "/"});
 });
 
 router.use((req, res, next) => {
 	const token = req.cookies.authorization;
-	if(token && token == "test")
+	if(token && token == "test")  
 		next();
 	else
-		res.render("pages/authenticate", { actionUrl: "http://localhost:8000/authenticate" });
+		res.render("pages/authenticate", { location: req.originalUrl, actionUrl: "http://localhost:8000/authenticate" });
 });
 
 router.get("/shows", (req, res) => {
-  getAllAnimes().then(animes => 
-    res.render("pages/shows", { animes })
+  getAllAnimes().then(animes =>
+    res.render("pages/shows", { location: "/shows", animes })
   );
 });
 
-router.get("/:title/:episodeNumber", async (req, res) => {
-  // const { title, episodeNumber } = req.params;
-  // const show = await Show.findOne({ title }).populate("episodes").exec();
-  // if(show){
-  //   const episode = show.episodes.find(e => e.episodeNumber == episodeNumber);
-  //   if(episode){
-  //     res.render("pages/episode", { 
-  //       episode: {
-  //         title: show.title,
-  //         url: episode.url,
-  //         episodeNumber: episode.episodeNumber
-  //       }
-  //     });
-  //   }
-  //   else res.status(404).send("Episode not found");
-  // }
-  // else res.status(404).send("Show not found");
-  res.render("pages/episode", {
-    episode: {
-      title: "Boku no Hero Academia",
-      url: "https://www.dropbox.com/s/79l4k2y9gxidtbr/04.mp4?raw=1",
-      episodeNumber: 1
-    }
+router.get("/:title", (req, res) => {
+  getAnime(req.params.title).then(show => {
+    debugger;
+    res.render("pages/show", { location: "", show });
   });
+});
+
+router.get("/:title/:episodeNumber", async (req, res) => {
+  const { title, episodeNumber } = req.params;
+  const show = await Show.findOne({ title }).populate("episodes").exec();
+  if(show){
+    const episode = show.episodes.find(e => e.episodeNumber == episodeNumber);
+   if(episode){
+      const hasNext = show.episodes.some(e => e.episodeNumber == parseInt(episodeNumber) + 1);
+      const hasPrevious = show.episodes.some(e => e.episodeNumber == parseInt(episodeNumber) - 1);
+      res.render("pages/episode", { 
+        location: "",
+        show,
+        episode: {
+          url: episode.url,
+          episodeNumber: episode.episodeNumber,
+          hasNext,
+          hasPrevious
+        }
+      });
+    }
+    else res.status(404).send("Episode not found");
+  }
+  else res.status(404).send("Show not found");
 });
 
 server.listen(port, () => {

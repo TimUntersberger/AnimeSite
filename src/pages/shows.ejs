@@ -2,15 +2,21 @@
 <html lang="en">
 <head>
   <% include ../partials/head %>
+  <link rel="stylesheet" href="/static/css/shows.css">
 </head>
 <body>
   <% include ../partials/header %>
   <main>
-    <ul>
+    <div class="container">
     <% animes.forEach(anime => { %>
-      <li><a href="/test/test"><%= anime.title %></a></li>
+      <div class="card anime" onclick="window.location.href = '/<%= anime.title %>'">
+        <img class="card-img-top" src="<%= anime.posterImageUrl %>">
+        <div class="card-body">
+          <h5 class="card-title"><%= anime.title %></h5>
+        </div>
+      </div>
     <% }) %>
-    </ul>
+    </div>
   </main>
 </body>
 </html>

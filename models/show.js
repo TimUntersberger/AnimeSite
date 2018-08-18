@@ -6,6 +6,14 @@ const showSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  posterImageUrl: {
+    type: String,
+    required: true
+  },
+  coverImageUrl: {
+    type: String,
+    required: true
+  },
   description: {
     type: String,
     required: true

@@ -19,6 +19,6 @@
   },
   "scripts": {
     "api-server": "node api/index.js",
-    "server:dev": "node index.js"
+    "server:prod": "API_URL=https://www.baaka.io/api node ."
   }
 }

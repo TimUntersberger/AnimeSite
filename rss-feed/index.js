@@ -1,7 +1,7 @@
 require("dotenv").load();
 const RssFeedWatcher = require("rss-feed-watcher");
 const path = require("path");
-const downloadAnime = require("./download_anime");
+const { downloadAnime } = require("./download_anime");
 const fs = require("fs");
 const uploadAnime = require("./upload_anime");
 const axios = require("axios");

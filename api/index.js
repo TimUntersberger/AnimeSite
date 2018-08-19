@@ -11,7 +11,10 @@ server.use(bodyParser.json());
 router.get("/authenticate", (req, res) => {
   const { password } = req.query;
   if(password === "test"){
-    let cookieOptions = {};
+    let cookieOptions = {
+      expires: new Date(Date.now() + 30 * 60 * 60 * 24),
+      httpOnly: true
+    };
     if(process.env.DOMAIN)
       cookieOptions.domain = process.env.DOMAIN;
     res.cookie("authorization", "test", cookieOptions);

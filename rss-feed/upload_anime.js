@@ -5,6 +5,7 @@ const fs = require("fs");
 const { Dropbox } = require("dropbox");
 const { execSync } = require("child_process");
 const dropboxClient = new Dropbox({ accessToken: process.env.DROPBOX_API_TOKEN });
+debugger;
 
 function uploadVideo(filePath, target){
   return new Promise((resolve, reject) => {
@@ -27,10 +28,9 @@ function uploadVideo(filePath, target){
         const firstSlice = slices[0];
         const lastSlice = slices[slices.length - 1];
 
-
         result = await dropboxClient.filesUploadSessionStart({ 
           contents: firstSlice 
-        });
+        }).catch(console.error);
         const sessionId = result.session_id;
         let uploadedBytes = (firstSlice.offset + firstSlice.length);
         console.log(`[DEBUG]: Uploaded ${(uploadedBytes * 100 / file.length).toFixed(2)}% ${(uploadedBytes / 1000000).toFixed(0)}/${(file.length / 1000000).toFixed(0)} MB`);
@@ -80,7 +80,7 @@ function uploadVideo(filePath, target){
           .sharingCreateSharedLinkWithSettings({ path: target})
           .catch(console.log);
 
-        execSync(`rm ${filePath}`);
+        execSync(`rm "${filePath}"`);
         resolve(url.replace("dl=0", "raw=1"));
       }
     })

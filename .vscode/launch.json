@@ -7,9 +7,14 @@
     {
       "type": "node",
       "request": "attach",
+      "name": "cli",
+      "program": "${workspaceFolder}/cli/index.js"
+    },
+    {
+      "type": "node",
+      "request": "attach",
       "name": "website",
-      "program": "${workspaceFolder}/index.js",
-      "port": 9229
+      "program": "${workspaceFolder}/index.js"
     },
     {
       "type": "node",
